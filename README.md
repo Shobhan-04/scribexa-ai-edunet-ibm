@@ -1,6 +1,10 @@
 # 📚 Scribexa AI
 
-AI-Powered Lecture-to-Notes Generator using Speech Recognition, OCR, NLP, and Generative AI.
+### Turn Notes into Knowledge
+
+**Learn Faster. Remember Longer.**
+
+AI-Powered Lecture-to-Notes Generator using Speech Recognition, OCR, NLP, and Generative AI. Upload lectures, PDFs, or handwritten notes and instantly generate AI-powered notes, flashcards, quizzes, and revision materials.
 
 ## Overview
 
@@ -189,4 +193,4 @@ streamlit run app.py
 
 Shobhan Satpathy
 
-Computer Science Student | AI/ML Enthusiast | Full Stack Developer
+Computer Science Student | AI/ML Enthusiast | Full Stack Web Developer

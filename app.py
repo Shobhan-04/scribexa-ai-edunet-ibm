@@ -16,13 +16,16 @@ from database.database import save_lecture
 # ---------------------------------------
 
 st.set_page_config(
-    page_title="Scribexa AI",
+    page_title="Scribexa AI | Turn Notes into Knowledge and Learn Faster. Remember Longer",
     page_icon="📚",
     layout="wide"
 )
 
 st.title("📚 Scribexa AI")
-st.caption("AI-Powered Lecture & Notes Assistant")
+
+st.subheader("Turn Notes into Knowledge")
+
+st.caption("Learn Faster. Remember Longer.")
 
 # ---------------------------------------
 # Create Upload Folder
