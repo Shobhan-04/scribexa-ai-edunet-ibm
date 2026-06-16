@@ -1,0 +1,8 @@
+streamlit
+google-generativeai
+python-dotenv
+openai-whisper
+pillow
+pymupdf
+fpdf2
+pandas
