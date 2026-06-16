@@ -1,8 +1,7 @@
 
 # Create Module
 
-from gemini_utils import ask_gemini
-
+from modules.gemini_utils import ask_gemini
 def generate_flashcards(text):
 
     prompt = f"""
