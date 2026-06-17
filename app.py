@@ -103,53 +103,102 @@ mcqs = ""
 # Processing
 # ---------------------------------------
 
-if uploaded_file:
-
-    file_path = os.path.join(
-        "uploads",
-        uploaded_file.name
-    )
-
-    with open(file_path, "wb") as f:
-        f.write(uploaded_file.read())
+if uploaded_file or (
+    option == "YouTube" and youtube_url
+):
 
     try:
+
+        transcript = ""
 
         # ---------------- AUDIO ----------------
 
         if option == "Audio":
 
-            with st.spinner("🎙️ Transcribing audio..."):
+            file_path = os.path.join(
+                "uploads",
+                uploaded_file.name
+            )
 
+            with open(file_path, "wb") as f:
+                f.write(uploaded_file.read())
+
+            with st.spinner(
+                "🎙️ Transcribing audio..."
+            ):
                 transcript = transcribe_audio(file_path)
 
         # ---------------- IMAGE ----------------
 
         elif option == "Image":
 
-            with st.spinner("📝 Extracting handwritten text..."):
+            file_path = os.path.join(
+                "uploads",
+                uploaded_file.name
+            )
 
+            with open(file_path, "wb") as f:
+                f.write(uploaded_file.read())
+
+            with st.spinner(
+                "📝 Extracting handwritten text..."
+            ):
                 transcript = extract_text_from_image(file_path)
 
         # ---------------- PDF ----------------
 
         elif option == "PDF":
 
-            with st.spinner("📄 Reading PDF..."):
+            file_path = os.path.join(
+                "uploads",
+                uploaded_file.name
+            )
 
+            with open(file_path, "wb") as f:
+                f.write(uploaded_file.read())
+
+            with st.spinner(
+                "📄 Reading PDF..."
+            ):
                 transcript = extract_text_from_pdf(file_path)
-        
+
+        # ---------------- YOUTUBE ----------------
+
         elif option == "YouTube":
-            with st.spinner("Downloading lecture..."):
-                audio_file = download_audio(youtube_url)
-            with st.spinner("Transcribing lecture..."):
-                transcript = transcribe_audio(audio_file)
+
+            with st.spinner(
+                "📥 Downloading lecture..."
+            ):
+                audio_file = download_audio(
+                    youtube_url
+                )
+
+            with st.spinner(
+                "🎙️ Transcribing lecture..."
+            ):
+                transcript = transcribe_audio(
+                    audio_file
+                )
+
+        # ---------------- VALIDATION ----------------
+
+        if not transcript.strip():
+
+            st.error(
+                "No text extracted."
+            )
+
+            st.stop()
 
         # ---------------- GENERATE CONTENT ----------------
 
-        with st.spinner("🤖 Generating study material..."):
+        with st.spinner(
+            "🤖 Generating study material..."
+        ):
 
-            result = generate_study_material(transcript)
+            result = generate_study_material(
+                transcript
+            )
 
             notes = result["notes"]
 
@@ -157,14 +206,20 @@ if uploaded_file:
 
             mcqs = result["mcqs"]
 
-        # ---------------- DATABASE SAVE ----------------
+        # ---------------- DATABASE ----------------
+
+        filename = (
+            uploaded_file.name
+            if uploaded_file
+            else youtube_url
+        )
 
         save_lecture(
-            uploaded_file.name,
+            filename,
             transcript,
-            str(notes),
-            str(flashcards),
-            str(mcqs)
+            json.dumps(notes),
+            json.dumps(flashcards),
+            json.dumps(mcqs)
         )
 
         st.success(
@@ -173,10 +228,20 @@ if uploaded_file:
 
     except Exception as e:
 
-        st.error(
-            f"Error: {str(e)}"
-        )
+        if "429" in str(e):
 
+            st.warning(
+                """
+                Gemini free quota exceeded.
+
+                Please wait a few minutes
+                and try again.
+                """
+            )
+
+        else:
+
+            st.error(str(e))
 # ---------------------------------------
 # Results Section
 # ---------------------------------------
