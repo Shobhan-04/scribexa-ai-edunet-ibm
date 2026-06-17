@@ -1,4 +1,4 @@
-from modules.gemini_utils import ask_gemini
+from modules.groq_utils import ask_groq
 
 def generate_mcqs(text):
 
@@ -21,4 +21,4 @@ def generate_mcqs(text):
     {text}
     """
 
-    return ask_gemini(prompt)
+    return ask_groq(prompt)
