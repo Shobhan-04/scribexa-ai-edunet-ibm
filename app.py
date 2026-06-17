@@ -5,9 +5,7 @@ from modules.whisper_utils import transcribe_audio
 from modules.image_processor import extract_text_from_image
 from modules.pdf_processor import extract_text_from_pdf
 
-from modules.note_generator import generate_notes
-from modules.flashcard_generator import generate_flashcards
-from modules.mcq_generator import generate_mcqs
+from modules.content_generator import generate_study_material
 
 from database.database import save_lecture
 import json
