@@ -98,9 +98,55 @@ Landing Page :
 
 ---
 
+### Architecture Diagram 
+```
+User
+   │
+   ▼
+Streamlit Web Application
+   │
+   ├── Audio Upload
+   ├── PDF Upload
+   ├── Image Upload
+   └── YouTube URL
+            │
+            ▼
+      Processing Layer
+   ├── Whisper (Speech-to-Text)
+   ├── PyMuPDF (PDF Extraction)
+   ├── OCR (Image Text Extraction)
+   └── yt-dlp (YouTube Audio Download)
+            │
+            ▼
+      Gemini AI Engine
+            │
+            ▼
+   ├── Study Notes
+   ├── Flashcards
+   ├── MCQs
+   ├── Revision Notes
+   └── AI Chat Assistant
+            │
+            ▼
+      SQLite Database
+            │
+            ▼
+      Export & Download
+   ├── PDF Export
+   ├── Notes Download
+   ├── Flashcards Download
+   └── MCQs Download
+            │
+            ▼
+      Streamlit Cloud
+```
+
+---
+
 ## Project Structure
 
-```textScribexaAI/
+```
+scribexa-ai-edunet-ibm/
 │
 ├── app.py
 ├── requirements.txt
