@@ -70,6 +70,7 @@ if option == "YouTube":
 
                 transcript = transcribe_audio(audio_file)
 
+            st.write("Transcript Length:", len(transcript))
             result = generate_study_material(transcript)
 
             notes = result["notes"]
