@@ -4,59 +4,53 @@ from modules.gemini_utils import ask_gemini
 def generate_study_material(text):
 
     text = text[:12000]
-    prompt = f"""
-You are an educational assistant.
-
-Analyze the lecture content.
-
-Return ONLY valid JSON.
-
-Do not write explanations.
-Do not use markdown.
-Do not use ```json blocks.
-
-JSON schema:
-
-{{
-  "notes": "string",
-
-  "flashcards": [
+    prompt = f"""You are an educational assistant.
+    Analyze the lecture content.
+    Return ONLY valid JSON.
+    
+    Do not write explanations.
+    Do not use markdown.
+    Do not use ```json blocks.
+    
+    JSON schema:
     {{
-      "front": "string",
-      "back": "string"
-    }}
-  ],
-
-  "mcqs": [
+    "notes": "string",
+    
+    "flashcards": [
     {{
-      "question": "string",
-      "options": [
-        "A",
-        "B",
-        "C",
-        "D"
-      ],
-      "answer": "string"
+    "front": "string",
+    "back": "string"
     }}
-  ]
-}}
-
-Generate:
-- concise study notes
-- 10 flashcards
-- 10 MCQs
-
-Lecture Text:
-
-{text}
-"""
-
-   response = ask_gemini(prompt)
-if not response:
-    raise Exception("Gemini returned an empty response.")
-
-if response.startswith("ERROR:"):
-    raise Exception(response)
+    ],
+    
+    "mcqs": [
+    {{
+    "question": "string",
+    "options": [
+    "A",
+    "B",
+    "C",
+    "D"
+    ],
+    answer": "string"
+    }}
+    ]
+    }}
+    
+    Generate:
+    concise study notes
+    - 10 flashcards
+    - 10 MCQs
+    
+    Lecture Text:
+    {text}
+    """
+    response = ask_gemini(prompt)
+    if not response:
+        raise Exception("Gemini returned an empty response.")
+    
+    if response.startswith("ERROR:"):
+        raise Exception(response)
 
     response = response.replace(
         "```json",
