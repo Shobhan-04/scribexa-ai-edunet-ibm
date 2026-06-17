@@ -178,22 +178,18 @@ if transcript:
     
     # Flashcards
     with tab3:
-
-    st.subheader("Flashcards")
-
-    for i, card in enumerate(flashcards):
-
-        with st.expander(f"Flashcard {i+1}"):
-
-            st.markdown("### Front")
-            st.write(card["front"])
-
-            st.markdown("### Back")
-            st.write(card["back"])
+        st.subheader("Flashcards")
+        
+        for i, card in enumerate(flashcards):
+            with st.expander(f"Flashcard {i+1}"):
+                st.markdown("### Front")
+                st.write(card["front"])
+                
+                st.markdown("### Back")
+                st.write(card["back"])
     # MCQs
     with tab4:
-
-    st.subheader("MCQs")
+        st.subheader("MCQs")
 
     try:
 
@@ -213,9 +209,7 @@ if transcript:
 
     except Exception as e:
 
-        st.error(
-            f"MCQ Display Error: {e}"
-        )
+        st.error(f"MCQ Display Error: {e}")
 
     # ---------------------------------------
     # Downloads
@@ -223,9 +217,7 @@ if transcript:
 
     st.markdown("---")
 
-    st.subheader(
-        "Downloads"
-    )
+    st.subheader("Downloads")
 
     col1, col2, col3 = st.columns(3)
 
