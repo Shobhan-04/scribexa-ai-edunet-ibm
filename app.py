@@ -10,6 +10,7 @@ from modules.flashcard_generator import generate_flashcards
 from modules.mcq_generator import generate_mcqs
 
 from database.database import save_lecture
+import json
 
 # ---------------------------------------
 # Page Configuration
@@ -75,7 +76,7 @@ if uploaded_file:
     file_path = os.path.join(
         "uploads",
         uploaded_file.name
-    )
+)
 
     with open(file_path, "wb") as f:
         f.write(uploaded_file.read())
@@ -86,37 +87,25 @@ if uploaded_file:
 
         if option == "Audio":
 
-            with st.spinner(
-                "🎙️ Transcribing audio..."
-            ):
+            with st.spinner("🎙️ Transcribing audio..."):
 
-                transcript = transcribe_audio(
-                    file_path
-                )
+                transcript = transcribe_audio(file_path)
 
         # ---------------- IMAGE ----------------
 
         elif option == "Image":
 
-            with st.spinner(
-                "📝 Extracting handwritten text..."
-            ):
+            with st.spinner("📝 Extracting handwritten text..."):
 
-                transcript = extract_text_from_image(
-                    file_path
-                )
+                transcript = extract_text_from_image(file_path)
 
         # ---------------- PDF ----------------
 
         elif option == "PDF":
 
-            with st.spinner(
-                "📄 Reading PDF..."
-            ):
+            with st.spinner("📄 Reading PDF..."):
 
-                transcript = extract_text_from_pdf(
-                    file_path
-                )
+                transcript = extract_text_from_pdf(file_path)
 
         # ---------------- GENERATE CONTENT ----------------
 
@@ -124,17 +113,11 @@ if uploaded_file:
             "🤖 Generating study material..."
         ):
 
-            notes = generate_notes(
-                transcript
-            )
+            notes = generate_notes(transcript)
 
-            flashcards = generate_flashcards(
-                transcript
-            )
+            flashcards = generate_flashcards(transcript)
 
-            mcqs = generate_mcqs(
-                transcript
-            )
+            mcqs = generate_mcqs(transcript)
 
         # ---------------- DATABASE SAVE ----------------
 
@@ -198,9 +181,13 @@ if transcript:
         st.subheader(
             "Flashcards"
         )
-
-        st.write(flashcards)
-
+        
+        flashcards_data = json.loads(flashcards)
+        
+        for i, card in enumerate(flashcards_data):
+            with st.expander(f"Flashcard {i+1}"):
+                st.markdown(f"**Q:** {card['front']}")
+                st.markdown(f"**A:** {card['back']}")
     # MCQs
 
     with tab4:
