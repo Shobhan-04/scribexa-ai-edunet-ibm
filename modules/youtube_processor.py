@@ -2,16 +2,25 @@ import yt_dlp
 
 def download_audio(url):
 
-    ydl_opts = {
-        "format": "bestaudio/best",
-        "outtmpl": "downloads/audio.%(ext)s",
-        "quiet": True
-    }
+    try:
 
-    with yt_dlp.YoutubeDL(
-        ydl_opts
-    ) as ydl:
+        ydl_opts = {
+            "format": "bestaudio/best",
+            "outtmpl": "downloads/%(id)s.%(ext)s",
+            "quiet": True
+        }
 
-        ydl.download([url])
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
 
-    return "downloads/audio.webm"
+            info = ydl.extract_info(
+                url,
+                download=True
+            )
+
+            return ydl.prepare_filename(info)
+
+    except Exception as e:
+
+        raise Exception(
+            f"YouTube download failed: {str(e)}"
+        )
