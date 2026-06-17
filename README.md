@@ -161,7 +161,6 @@ scribexa-ai-edunet-ibm/
 │   ├── notes.png
 │   ├── flashcards.png
 │   ├── mcqs.png
-│   ├── architecture.png
 │
 ├── modules/
 │   ├── **init**.py
