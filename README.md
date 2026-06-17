@@ -20,6 +20,13 @@ The platform automatically generates:
 This eliminates the need for manual note-taking and improves revision efficiency.
 
 ---
+## 🚀 Live Demo
+
+Streamlit App:
+https://scribexa-ai-edunet-ibm.streamlit.app/
+
+Landing Page : 
+https://scribexa-ai-landing-page.lovable.app/
 
 ## Features
 
@@ -37,6 +44,8 @@ This eliminates the need for manual note-taking and improves revision efficiency
 
 * Extract text from PDFs
 * Generate study materials automatically
+
+### 🎥 YouTube Lecture Processing
 
 ### 🤖 AI Study Material Generation
 
@@ -91,31 +100,61 @@ This eliminates the need for manual note-taking and improves revision efficiency
 
 ## Project Structure
 
-```text
-ScribexaAI/
-
+```textScribexaAI/
+│
 ├── app.py
 ├── requirements.txt
-├── .env
-
+├── packages.txt
+├── runtime.txt
+├── .gitignore
+├── README.md
+│
+├── assets/
+│   ├── home.png
+│   ├── upload.png
+│   ├── notes.png
+│   ├── flashcards.png
+│   ├── mcqs.png
+│   ├── architecture.png
+│
 ├── modules/
+│   ├── **init**.py
+│   │
 │   ├── whisper_utils.py
 │   ├── gemini_utils.py
-│   ├── image_processor.py
 │   ├── pdf_processor.py
+│   ├── image_processor.py
+│   ├── youtube_processor.py
+│   ├── content_generator.py
 │   ├── note_generator.py
 │   ├── flashcard_generator.py
 │   ├── mcq_generator.py
+│   ├── revision_generator.py
+│   ├── chatbot.py
+│   ├── exam_predictor.py
+│   ├── translator.py
 │   └── pdf_export.py
-
+│
 ├── database/
 │   ├── database.py
 │   └── scribexa.db
-
-├── uploads/
-├── outputs/
-
-└── notebooks/
+│
+├── notebooks/
+│   ├── Phase1_Whisper_Test.ipynb
+│   ├── Phase2_Gemini_Test.ipynb
+│   ├── Phase3_Notes_Test.ipynb
+│   ├── Phase4_Flashcards.ipynb
+│   ├── Phase5_MCQ_Test.ipynb
+│   ├── Phase6_OCR_Test.ipynb
+│   ├── Phase7_PDF_Processing.ipynb
+│   ├── Phase8_PDF_Export.ipynb
+│
+├── docs/
+│   ├── Presentation.pptx
+│
+├── .streamlit/
+│ ├── config.toml
+│ └── secrets.toml # Local only
 ```
 
 ---
@@ -125,8 +164,8 @@ ScribexaAI/
 ### Clone Repository
 
 ```bash
-git clone <repository-url>
-cd ScribexaAI
+git clone (https://github.com/Shobhan-04/scribexa-ai-edunet-ibm.git)
+cd scribexa-ai-edunet-ibm
 ```
 
 ### Create Virtual Environment
@@ -182,10 +221,10 @@ streamlit run app.py
 * AI Chat Assistant
 * Revision Notes Generator
 * Exam Question Predictor
-* YouTube Lecture Support
-* Multi-Language Notes
+* Multi-Language Support
 * Mind Map Generation
 * Cloud Deployment
+* RAG-based Study Assistant
 
 ---
 
@@ -194,3 +233,10 @@ streamlit run app.py
 Shobhan Satpathy
 
 Computer Science Student | AI/ML Enthusiast | Full Stack Web Developer
+GitHub:
+(https://github.com/Shobhan-04)
+
+LinkedIn:
+(www.linkedin.com/in/shobhanengineer)
+
+⭐ If you found this project useful, please star the repository.
