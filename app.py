@@ -261,20 +261,16 @@ if transcript:
     
      # MCQs
     with tab4:
-    st.subheader("MCQs")
-
-    for i, q in enumerate(mcqs):
-
-        with st.expander(f"Question {i+1}"):
-
-            st.write(q["question"])
-
-            for opt in q["options"]:
-                st.write(f"• {opt}")
-
-            st.success(
-                f"Answer: {q['answer']}"
-            )
+        st.subheader("MCQs")
+        
+        for i, q in enumerate(mcqs):
+            with st.expander(f"Question {i+1}"):
+                st.write(q["question"])
+                
+                for opt in q["options"]:
+                    st.write(f"• {opt}")
+                
+                st.success(f"Answer: {q['answer']}")
 
     # ---------------------------------------
     # Downloads
