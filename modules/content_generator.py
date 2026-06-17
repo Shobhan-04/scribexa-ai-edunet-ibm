@@ -3,43 +3,60 @@ from modules.gemini_utils import ask_gemini
 
 def generate_study_material(text):
 
+    text = text[:12000]
     prompt = f"""
-    From the following lecture text generate:
+You are an educational assistant.
 
-    1. Structured Study Notes
-    2. 10 Flashcards
-    3. 10 MCQs
+Analyze the lecture content.
 
-    Return ONLY valid JSON.
+Return ONLY valid JSON.
 
-    Format:
+Do not write explanations.
+Do not use markdown.
+Do not use ```json blocks.
 
+JSON schema:
+
+{{
+  "notes": "string",
+
+  "flashcards": [
     {{
-      "notes":"...",
-      "flashcards":[
-        {{
-          "front":"...",
-          "back":"..."
-        }}
-      ],
-      "mcqs":[
-        {{
-          "question":"...",
-          "options":["A","B","C","D"],
-          "answer":"..."
-        }}
-      ]
+      "front": "string",
+      "back": "string"
     }}
+  ],
 
-    Lecture Text:
+  "mcqs": [
+    {{
+      "question": "string",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "string"
+    }}
+  ]
+}}
 
-    {text}
-    """
+Generate:
+- concise study notes
+- 10 flashcards
+- 10 MCQs
 
-    response = ask_gemini(prompt)
-    print("========== GEMINI RESPONSE ==========")
-    print(response)
-    print("====================================")
+Lecture Text:
+
+{text}
+"""
+
+   response = ask_gemini(prompt)
+if not response:
+    raise Exception("Gemini returned an empty response.")
+
+if response.startswith("ERROR:"):
+    raise Exception(response)
 
     response = response.replace(
         "```json",
