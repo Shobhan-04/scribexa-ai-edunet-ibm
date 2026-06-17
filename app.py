@@ -55,6 +55,32 @@ if option == "YouTube":
 
     youtube_url = st.text_input("Enter YouTube Lecture URL")
 
+    if youtube_url:
+
+        st.video(youtube_url)
+
+        if st.button("Generate Study Material"):
+
+            with st.spinner("Downloading lecture..."):
+
+                audio_file = download_audio(youtube_url)
+
+            with st.spinner("Transcribing..."):
+
+                transcript = transcribe_audio(audio_file)
+
+            result = generate_study_material(transcript)
+
+            notes = result["notes"]
+
+            flashcards = result["flashcards"]
+
+            mcqs = result["mcqs"]
+
+            st.success(
+                "Study material generated!"
+            )
+
 # ---------------------------------------
 # File Upload
 # ---------------------------------------
