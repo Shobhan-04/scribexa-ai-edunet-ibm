@@ -1,10 +1,10 @@
 import streamlit as st
-from modules.gemini_utils import ask_gemini
+from modules.groq_utils import ask_groq
 
 def ask_notes_question(notes, question):
 
     prompt = f"""
-    Answer only from these notes.
+    Answer ONLY using the information present in these notes.
 
     Notes:
     {notes}
@@ -13,18 +13,22 @@ def ask_notes_question(notes, question):
     {question}
     """
 
-    return ask_gemini(prompt)
-  
-# Streamlit
-question = st.text_input(
-    "Ask Questions"
-)
+    return ask_groq(prompt)
 
-if question:
 
-    answer = ask_notes_question(
-        notes,
-        question
+def chatbot_ui(notes):
+
+    st.subheader("🤖 AI Study Assistant")
+
+    question = st.text_input(
+        "Ask a question about your notes"
     )
 
-    st.write(answer)
+    if question:
+
+        answer = ask_notes_question(
+            notes,
+            question
+        )
+
+        st.success(answer)
