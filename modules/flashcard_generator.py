@@ -1,15 +1,16 @@
-
-# Create Module
-
-from modules.gemini_utils import ask_gemini
 def generate_flashcards(text):
-
     prompt = f"""
-    Generate 10 flashcards.
+    Convert the following text into flashcards.
+
+    Return ONLY JSON in this format:
+    [
+      {"front": "question", "back": "answer"},
+      ...
+    ]
 
     Text:
-
     {text}
     """
 
-    return ask_gemini(prompt)
+    response = ask_gemini(prompt)
+    return response
