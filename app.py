@@ -4,6 +4,7 @@ import os
 from modules.whisper_utils import transcribe_audio
 from modules.image_processor import extract_text_from_image
 from modules.pdf_processor import extract_text_from_pdf
+from modules.youtube_processor import download_audio
 
 from modules.content_generator import generate_study_material
 
@@ -43,9 +44,16 @@ option = st.sidebar.selectbox(
     [
         "Audio",
         "Image",
-        "PDF"
+        "PDF",
+        "YouTube"
     ]
 )
+
+youtube_url = ""
+
+if option == "YouTube":
+
+    youtube_url = st.text_input("Enter YouTube Lecture URL")
 
 # ---------------------------------------
 # File Upload
@@ -104,16 +112,19 @@ if uploaded_file:
             with st.spinner("📄 Reading PDF..."):
 
                 transcript = extract_text_from_pdf(file_path)
+        
+        elif option == "YouTube":
+            with st.spinner("Downloading lecture..."):
+                audio_file = download_audio(youtube_url)
+            with st.spinner("Transcribing lecture..."):
+
+        transcript = transcribe_audio(audio_file)
 
         # ---------------- GENERATE CONTENT ----------------
 
-        with st.spinner(
-            "🤖 Generating study material..."
-        ):
+        with st.spinner("🤖 Generating study material..."):
 
-            result = generate_study_material(
-                transcript
-            )
+            result = generate_study_material(transcript)
 
             notes = result["notes"]
 
