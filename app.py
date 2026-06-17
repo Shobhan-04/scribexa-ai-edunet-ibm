@@ -168,9 +168,7 @@ if transcript:
 
     with tab2:
 
-        st.subheader(
-            "Study Notes"
-        )
+        st.subheader("Study Notes")
 
         st.write(notes)
 
@@ -178,23 +176,42 @@ if transcript:
 
     with tab3:
 
-        st.subheader(
-            "Flashcards"
-        )
-        
-        flashcards_data = json.loads(flashcards)
-        
-        for i, card in enumerate(flashcards_data):
-            with st.expander(f"Flashcard {i+1}"):
-                st.markdown(f"**Q:** {card['front']}")
-                st.markdown(f"**A:** {card['back']}")
+    st.subheader("Flashcards")
+
+    flashcards_data = json.loads(flashcards)
+
+    for i, card in enumerate(flashcards_data):
+
+        with st.expander(f"Flashcard {i+1}"):
+
+            st.markdown(f"### Front")
+            st.write(card["front"])
+
+            st.markdown("### Back")
+            st.write(card["back"])
     # MCQs
 
     with tab4:
 
-        st.subheader(
-            "MCQs"
-        )
+    st.subheader("MCQs")
+
+    try:
+
+        mcq_data = json.loads(mcqs)
+
+        for i, q in enumerate(mcq_data):
+
+            with st.expander(f"Question {i+1}"):
+
+                st.write(q["question"])
+
+                for opt in q["options"]:
+
+                    st.write(f"- {opt}")
+
+                st.success(f"Answer: {q['answer']}")
+
+    except Exception as e:
 
         st.write(mcqs)
 
