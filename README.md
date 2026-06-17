@@ -66,7 +66,7 @@ Landing Page :
 
 ---
 
-## Tech Stack
+## 🛠 Tech Stack
 
 ### Frontend
 
@@ -98,7 +98,7 @@ Landing Page :
 
 ---
 
-### Architecture Diagram 
+### 🏗 Architecture Diagram 
 ```
 User
    │
@@ -143,7 +143,7 @@ Streamlit Web Application
 
 ---
 
-## Project Structure
+## 📂 Project Structure
 
 ```
 scribexa-ai-edunet-ibm/
@@ -204,6 +204,9 @@ scribexa-ai-edunet-ibm/
 
 ---
 
+## 📷 Screenshots
+
+---
 ## Installation
 
 ### Clone Repository
@@ -261,7 +264,12 @@ streamlit run app.py
 
 ---
 
-## Future Enhancements
+## ⚠ Known Limitations
+Uses Gemini Free Tier API.
+API requests are subject to daily and rate limits.
+If quota is exceeded, content generation may be temporarily unavailable until the quota resets.
+---
+## 🔮Future Enhancements
 
 * AI Chat Assistant
 * Revision Notes Generator
@@ -273,7 +281,7 @@ streamlit run app.py
 
 ---
 
-## Author
+## 👨‍💻 Author
 
 Shobhan Satpathy
 
@@ -285,3 +293,9 @@ LinkedIn:
 (www.linkedin.com/in/shobhanengineer)
 
 ⭐ If you found this project useful, please star the repository.
+
+---
+
+## 📜 License
+
+This project is developed for educational and learning purposes.
