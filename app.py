@@ -261,14 +261,20 @@ if transcript:
     
      # MCQs
     with tab4:
-        st.subheader("MCQs")
-        for i, q in enumerate(mcqs):
-            with st.expander(f"Question {i+1}"):
-                st.write(q["question"])
-                
+    st.subheader("MCQs")
+
+    for i, q in enumerate(mcqs):
+
+        with st.expander(f"Question {i+1}"):
+
+            st.write(q["question"])
+
             for opt in q["options"]:
                 st.write(f"• {opt}")
-                st.success(f"Answer: {q['answer']}")
+
+            st.success(
+                f"Answer: {q['answer']}"
+            )
 
     # ---------------------------------------
     # Downloads
@@ -293,7 +299,7 @@ if transcript:
 
         st.download_button(
             label="📥 Download Flashcards",
-            data=flashcards,
+            data=json.dumps(flashcards, indent=2) 
             file_name="flashcards.txt",
             mime="text/plain"
         )
@@ -302,7 +308,7 @@ if transcript:
 
         st.download_button(
             label="📥 Download MCQs",
-            data=mcqs,
+            data=json.dumps(mcqs, indent=2)
             file_name="mcqs.txt",
             mime="text/plain"
         )
