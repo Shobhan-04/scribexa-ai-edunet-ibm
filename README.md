@@ -23,10 +23,10 @@ This eliminates the need for manual note-taking and improves revision efficiency
 ## 🚀 Live Demo
 
 Streamlit App:
-https://scribexa-ai-edunet-ibm.streamlit.app/
+(https://scribexa-ai-edunet-ibm.streamlit.app/)
 
 Landing Page : 
-https://scribexa-ai-landing-page.lovable.app/
+(https://scribexa-ai-landing-page.lovable.app/)
 
 ## Features
 
