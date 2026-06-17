@@ -3,54 +3,38 @@ from modules.groq_utils import ask_groq
 
 def generate_study_material(text):
 
-    text = text[:12000]
-    prompt = f"""You are an educational assistant.
-    Analyze the lecture content.
-    Return ONLY valid JSON.
-    
-    Do not write explanations.
-    Do not use markdown.
-    Do not use ```json blocks.
-    
-    JSON schema:
-    {{
-    "notes": "string",
-    
-    "flashcards": [
-    {{
-    "front": "string",
-    "back": "string"
-    }}
-    ],
-    
-    "mcqs": [
-    {{
-    "question": "string",
-    "options": [
-    "A",
-    "B",
-    "C",
-    "D"
-    ],
-    answer": "string"
-    }}
-    ]
-    }}
-    
-    Generate:
-    concise study notes
-    - 10 flashcards
-    - 10 MCQs
-    
-    Lecture Text:
-    {text}
-    """
-    response = ask_groq(prompt)
-    if not response:
-        raise Exception("Groq returned an empty response.")
+    # Prevent huge prompts
+    text = text[:10000]
 
-    if response.startswith("ERROR:"):
-        raise Exception(response)
+    prompt = f"""
+Generate study material from the following text.
+
+Return ONLY valid JSON.
+
+{{
+    "notes":"Detailed study notes",
+
+    "flashcards":[
+        {{
+            "front":"Question",
+            "back":"Answer"
+        }}
+    ],
+
+    "mcqs":[
+        {{
+            "question":"Question",
+            "options":["A","B","C","D"],
+            "answer":"Correct Answer"
+        }}
+    ]
+}}
+
+TEXT:
+{text}
+"""
+
+    response = ask_groq(prompt)
 
     response = response.replace(
         "```json",
@@ -60,12 +44,4 @@ def generate_study_material(text):
         ""
     ).strip()
 
-    try:
-        return json.loads(response)
-
-    except Exception as e:
-        raise Exception(f"""Groq returned invalid JSON.
-        Response received: {response}
-        Error: {str(e)}
-        """
-    )
+    return json.loads(response)
