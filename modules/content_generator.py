@@ -1,4 +1,5 @@
 import json
+import re
 from modules.groq_utils import ask_groq
 
 def generate_study_material(text):
@@ -43,13 +44,10 @@ TEXT:
     print("RAW GROQ RESPONSE:")
     print(response)
 
-    response = response.replace(
-        "```json",
-        ""
-    ).replace(
-        "```",
-        ""
-    ).strip()
+    match = re.search(r"\{.*\}", response, re.DOTALL)
+    
+    if match:
+        response = match.group(0)
 
     try:
         return json.loads(response)
