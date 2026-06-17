@@ -5,12 +5,14 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Try .env first
-api_key = os.getenv("GROQ_API_KEY")
+api_key = os.getenv(
+    "GROQ_API_KEY"
+)
 
-# Streamlit Cloud fallback
 if not api_key:
-    api_key = st.secrets["GROQ_API_KEY"]
+    api_key = st.secrets[
+        "GROQ_API_KEY"
+    ]
 
 client = Groq(
     api_key=api_key
@@ -22,10 +24,11 @@ def ask_groq(prompt):
         model="llama-3.3-70b-versatile",
         messages=[
             {
-                "role": "user",
-                "content": prompt
+                "role":"user",
+                "content":prompt
             }
-        ]
+        ],
+        temperature=0.3
     )
 
     return response.choices[0].message.content
