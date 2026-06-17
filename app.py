@@ -4,7 +4,7 @@ import os
 from modules.whisper_utils import transcribe_audio
 from modules.image_processor import extract_text_from_image
 from modules.pdf_processor import extract_text_from_pdf
-from modules.youtube_processor import download_audio
+# from modules.youtube_processor import download_audio
 # from modules.chatbot import chatbot_ui 
 
 from modules.content_generator import generate_study_material
@@ -46,7 +46,7 @@ option = st.sidebar.selectbox(
         "Audio",
         "Image",
         "PDF",
-        "YouTube"
+        # "YouTube"
     ]
 )
 
