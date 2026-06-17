@@ -34,7 +34,9 @@ TEXT:
 {text}
 """
 
+    print("Sending to Groq...")
     response = ask_groq(prompt)
+    print("Groq response received")
 
     response = response.replace(
         "```json",
