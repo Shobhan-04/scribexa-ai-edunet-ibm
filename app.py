@@ -117,8 +117,7 @@ if uploaded_file:
             with st.spinner("Downloading lecture..."):
                 audio_file = download_audio(youtube_url)
             with st.spinner("Transcribing lecture..."):
-
-        transcript = transcribe_audio(audio_file)
+                transcript = transcribe_audio(audio_file)
 
         # ---------------- GENERATE CONTENT ----------------
 
