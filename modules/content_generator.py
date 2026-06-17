@@ -44,4 +44,10 @@ TEXT:
         ""
     ).strip()
 
-    return json.loads(response)
+    try:
+        return json.loads(response)
+    
+    except Exception as e:
+        print("RAW RESPONSE:")
+        print(response)
+        raise Exception(f"Groq returned invalid JSON: {e}")
