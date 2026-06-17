@@ -78,9 +78,7 @@ if option == "YouTube":
 
             mcqs = result["mcqs"]
 
-            st.success(
-                "Study material generated!"
-            )
+            st.success("Study material generated!")
 
 # ---------------------------------------
 # File Upload
@@ -104,9 +102,7 @@ mcqs = ""
 # Processing
 # ---------------------------------------
 
-if uploaded_file or (
-    option == "YouTube" and youtube_url
-):
+if uploaded_file or (option == "YouTube" and youtube_url):
 
     try:
 
@@ -124,9 +120,7 @@ if uploaded_file or (
             with open(file_path, "wb") as f:
                 f.write(uploaded_file.read())
 
-            with st.spinner(
-                "🎙️ Transcribing audio..."
-            ):
+            with st.spinner("🎙️ Transcribing audio..."):
                 transcript = transcribe_audio(file_path)
 
         # ---------------- IMAGE ----------------
@@ -141,9 +135,7 @@ if uploaded_file or (
             with open(file_path, "wb") as f:
                 f.write(uploaded_file.read())
 
-            with st.spinner(
-                "📝 Extracting handwritten text..."
-            ):
+            with st.spinner("📝 Extracting handwritten text..."):
                 transcript = extract_text_from_image(file_path)
 
         # ---------------- PDF ----------------
@@ -158,28 +150,18 @@ if uploaded_file or (
             with open(file_path, "wb") as f:
                 f.write(uploaded_file.read())
 
-            with st.spinner(
-                "📄 Reading PDF..."
-            ):
+            with st.spinner("📄 Reading PDF..."):
                 transcript = extract_text_from_pdf(file_path)
 
         # ---------------- YOUTUBE ----------------
 
         elif option == "YouTube":
 
-            with st.spinner(
-                "📥 Downloading lecture..."
-            ):
-                audio_file = download_audio(
-                    youtube_url
-                )
+            with st.spinner("📥 Downloading lecture..."):
+                audio_file = download_audio(youtube_url)
 
-            with st.spinner(
-                "🎙️ Transcribing lecture..."
-            ):
-                transcript = transcribe_audio(
-                    audio_file
-                )
+            with st.spinner("🎙️ Transcribing lecture..."):
+                transcript = transcribe_audio(audio_file)
 
         # ---------------- VALIDATION ----------------
 
@@ -223,9 +205,7 @@ if uploaded_file or (
             json.dumps(mcqs)
         )
 
-        st.success(
-            "✅ Study materials generated successfully!"
-        )
+        st.success("✅ Study materials generated successfully!")
 
     except Exception as e:
 
@@ -233,7 +213,7 @@ if uploaded_file or (
 
             st.warning(
                 """
-                Gemini free quota exceeded.
+                Groq free quota exceeded.
 
                 Please wait a few minutes
                 and try again.
