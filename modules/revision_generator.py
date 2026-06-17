@@ -1,4 +1,4 @@
-from modules.gemini_utils import ask_gemini
+from modules.groq_utils import ask_groq
 
 def generate_revision_notes(
     text
@@ -19,4 +19,4 @@ def generate_revision_notes(
     {text}
     """
 
-    return ask_gemini(prompt)
+    return ask_groq(prompt)
