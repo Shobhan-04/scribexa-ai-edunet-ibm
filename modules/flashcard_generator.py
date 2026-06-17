@@ -1,4 +1,4 @@
-from modules.gemini_utils import ask_gemini
+from modules.groq_utils import ask_groq
 
 def generate_flashcards(text):
     prompt = f"""
@@ -14,5 +14,5 @@ def generate_flashcards(text):
     {text}
     """
 
-    response = ask_gemini(prompt)
+    response = ask_groq(prompt)
     return response
