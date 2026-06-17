@@ -74,7 +74,7 @@ if uploaded_file:
     file_path = os.path.join(
         "uploads",
         uploaded_file.name
-)
+    )
 
     with open(file_path, "wb") as f:
         f.write(uploaded_file.read())
@@ -111,20 +111,24 @@ if uploaded_file:
             "🤖 Generating study material..."
         ):
 
-            notes = generate_notes(transcript)
+            result = generate_study_material(
+                transcript
+            )
 
-            flashcards = generate_flashcards(transcript)
+            notes = result["notes"]
 
-            mcqs = generate_mcqs(transcript)
+            flashcards = result["flashcards"]
+
+            mcqs = result["mcqs"]
 
         # ---------------- DATABASE SAVE ----------------
 
         save_lecture(
             uploaded_file.name,
             transcript,
-            notes,
-            flashcards,
-            mcqs
+            str(notes),
+            str(flashcards),
+            str(mcqs)
         )
 
         st.success(
@@ -152,52 +156,38 @@ if transcript:
         ]
     )
 
-    # Transcript
-
+  # Transcript
     with tab1:
-
-        st.subheader(
-            "Transcript"
-        )
-
-        st.write(transcript)
-
-    # Notes
-
+        st.subheader("Transcript")
+        st.text_area("Transcript",transcript, height=500)
+        
+   # Notes
     with tab2:
-
         st.subheader("Study Notes")
-
-        st.write(notes)
-
+        st.markdown(notes)
+    
     # Flashcards
-
     with tab3:
 
     st.subheader("Flashcards")
 
-    flashcards_data = json.loads(flashcards)
-
-    for i, card in enumerate(flashcards_data):
+    for i, card in enumerate(flashcards):
 
         with st.expander(f"Flashcard {i+1}"):
 
-            st.markdown(f"### Front")
+            st.markdown("### Front")
             st.write(card["front"])
 
             st.markdown("### Back")
             st.write(card["back"])
     # MCQs
-
     with tab4:
 
     st.subheader("MCQs")
 
     try:
 
-        mcq_data = json.loads(mcqs)
-
-        for i, q in enumerate(mcq_data):
+        for i, q in enumerate(mcqs):
 
             with st.expander(f"Question {i+1}"):
 
@@ -207,11 +197,15 @@ if transcript:
 
                     st.write(f"- {opt}")
 
-                st.success(f"Answer: {q['answer']}")
+                st.success(
+                    f"Answer: {q['answer']}"
+                )
 
     except Exception as e:
 
-        st.write(mcqs)
+        st.error(
+            f"MCQ Display Error: {e}"
+        )
 
     # ---------------------------------------
     # Downloads
