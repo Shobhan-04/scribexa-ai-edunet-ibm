@@ -35,8 +35,13 @@ TEXT:
 """
 
     print("Sending to Groq...")
+    print("TEXT LENGTH:", len(text))
+    
     response = ask_groq(prompt)
+    
     print("Groq response received")
+    print("RAW GROQ RESPONSE:")
+    print(response)
 
     response = response.replace(
         "```json",
@@ -50,6 +55,6 @@ TEXT:
         return json.loads(response)
     
     except Exception as e:
-        print("RAW RESPONSE:")
+        print("RAW GROQ RESPONSE:")
         print(response)
         raise Exception(f"Groq returned invalid JSON: {e}")
