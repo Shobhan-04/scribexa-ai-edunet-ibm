@@ -4,42 +4,31 @@ from modules.gemini_utils import ask_gemini
 def generate_study_material(text):
 
     prompt = f"""
-   You are an expert educational tutor.
-   
-   Analyze the lecture transcript and create:
-   
-   1. Structured Study Notes
-   2. Important Key Concepts
-   3. 10 Flashcards
-   4. 10 MCQs
-   
-   Make notes concise and exam-oriented.
-   Return ONLY valid JSON.
+    From the following lecture text generate:
+
+    1. Structured Study Notes
+    2. 10 Flashcards
+    3. 10 MCQs
+
+    Return ONLY valid JSON.
 
     Format:
 
     {{
-        "notes": "study notes here",
-
-        "flashcards": [
-            {{
-                "front": "question",
-                "back": "answer"
-            }}
-        ],
-
-        "mcqs": [
-            {{
-                "question": "question",
-                "options": [
-                    "option1",
-                    "option2",
-                    "option3",
-                    "option4"
-                ],
-                "answer": "correct answer"
-            }}
-        ]
+      "notes":"...",
+      "flashcards":[
+        {{
+          "front":"...",
+          "back":"..."
+        }}
+      ],
+      "mcqs":[
+        {{
+          "question":"...",
+          "options":["A","B","C","D"],
+          "answer":"..."
+        }}
+      ]
     }}
 
     Lecture Text:
@@ -49,4 +38,24 @@ def generate_study_material(text):
 
     response = ask_gemini(prompt)
 
-    return json.loads(response)
+    print(response)
+
+    response = response.replace(
+        "```json",
+        ""
+    ).replace(
+        "```",
+        ""
+    ).strip()
+
+    try:
+        return json.loads(response)
+
+    except Exception as e:
+
+        print("JSON ERROR:")
+        print(response)
+
+        raise Exception(
+            f"Invalid Gemini JSON Response: {e}"
+        )
