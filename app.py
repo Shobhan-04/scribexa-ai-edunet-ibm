@@ -270,43 +270,24 @@ if transcript:
     
     # Flashcards
     with tab3:
-
-    st.subheader(
-        "Flashcards"
-    )
-
-    for i, card in enumerate(
-        flashcards
-    ):
-
-        with st.expander(
-            f"Flashcard {i+1}"
-        ):
-
-            st.write(
-                card["front"]
-            )
-
-            st.success(
-                card["back"]
-            )
-            
-    # MCQs
-   with tab4:
-
-    st.subheader("MCQs")
-
-    for i, q in enumerate(mcqs):
-
-        with st.expander(f"Question {i+1}"):
-
-            st.write(q["question"])
-
+        st.subheader("Flashcards")
+        
+        for i, card in enumerate(flashcards):
+            with st.expander(f"Flashcard {i+1}"):
+                st.write(card["front"])
+                
+                st.success(card["back"])
+    
+     # MCQs
+    with tab4:
+        st.subheader("MCQs")
+        for i, q in enumerate(mcqs):
+            with st.expander(f"Question {i+1}"):
+                st.write(q["question"])
+                
             for opt in q["options"]:
-
                 st.write(f"• {opt}")
-
-            st.success(f"Answer: {q['answer']}")
+                st.success(f"Answer: {q['answer']}")
 
     # ---------------------------------------
     # Downloads
