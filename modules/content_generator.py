@@ -37,8 +37,9 @@ def generate_study_material(text):
     """
 
     response = ask_gemini(prompt)
-
+    print("========== GEMINI RESPONSE ==========")
     print(response)
+    print("====================================")
 
     response = response.replace(
         "```json",
