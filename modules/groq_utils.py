@@ -19,16 +19,22 @@ client = Groq(
 )
 
 def ask_groq(prompt):
+    try:
 
-    response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
-        messages=[
-            {
-                "role":"user",
-                "content":prompt
-            }
-        ],
-        temperature=0.3
-    )
+        response = client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=[
+                {
+                    "role":"user",
+                    "content":prompt
+                }
+            ]
+        )
 
-    return response.choices[0].message.content
+        return response.choices[0].message.content
+
+    except Exception as e:
+
+        print("GROQ ERROR:", e)
+
+        raise Exception(str(e))
