@@ -1,5 +1,5 @@
 streamlit
-google-generativeai
+groq
 python-dotenv
 openai-whisper
 PyMuPDF
@@ -11,4 +11,3 @@ opencv-python-headless
 numpy
 torch
 tqdm
-groq
