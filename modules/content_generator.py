@@ -5,7 +5,7 @@ from modules.groq_utils import ask_groq
 def generate_study_material(text):
 
     # Prevent huge prompts
-    text = text[:10000]
+    text = text[:4000]
 
     prompt = f"""
 Generate study material from the following text.
