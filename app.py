@@ -71,13 +71,11 @@ if option == "YouTube":
                 transcript = transcribe_audio(audio_file)
 
             st.write("Transcript Length:", len(transcript))
-            result = generate_study_material(transcript)
-
-            notes = result["notes"]
-
-            flashcards = result["flashcards"]
-
-            mcqs = result["mcqs"]
+            result = generate_study_material(transcript) or {}
+            
+            notes = result.get("notes", "")
+            flashcards = result.get("flashcards", [])
+            mcqs = result.get("mcqs", [])
 
             st.success("Study material generated!")
 
