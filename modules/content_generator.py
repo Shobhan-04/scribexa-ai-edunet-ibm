@@ -53,10 +53,8 @@ def generate_study_material(text):
         return json.loads(response)
 
     except Exception as e:
-
-        print("JSON ERROR:")
-        print(response)
-
-        raise Exception(
-            f"Invalid Gemini JSON Response: {e}"
-        )
+        raise Exception(f"""Gemini returned invalid JSON.
+        Response received: {response}
+        Error: {str(e)}
+        """
+    )
