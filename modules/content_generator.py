@@ -4,58 +4,41 @@ from modules.groq_utils import ask_groq
 
 def generate_study_material(text):
 
-    # Prevent huge prompts
-    text = text[:4000]
+    text = text[:4000]  # reduce load
 
     prompt = f"""
-Generate study material from the following text.
-
-Return ONLY valid JSON.
-
-{{
-    "notes":"Detailed study notes",
-
-    "flashcards":[
-        {{
-            "front":"Question",
-            "back":"Answer"
-        }}
-    ],
-
-    "mcqs":[
-        {{
-            "question":"Question",
-            "options":["A","B","C","D"],
-            "answer":"Correct Answer"
-        }}
-    ]
-}}
-
-TEXT:
-{text}
-"""
-
-    print("Sending to Groq...")
-    print("TEXT LENGTH:", len(text))
+    Generate study material.
+    Return ONLY valid JSON.
     
-    response = ask_groq(prompt)
+    {{
+    "notes":"...",
+    "flashcards":[{{"front":"...","back":"..."}}],
+    "mcqs":[{{"question":"...","options":["A","B","C","D"],"answer":"..."}}]
+    }}
     
-    print("Groq response received")
-    print("RAW GROQ RESPONSE:")
-    print(response)
-
-    match = re.search(r"\{.*\}", response, re.DOTALL)
-    
-    if match:
-        response = match.group(0)
+    TEXT: 
+    {text}
+    """
 
     try:
         response = ask_groq(prompt)
-        if response.startswith("ERROR"):
-            raise Exception(response)
-            return json.loads(response)
-    
+
+        if not response:
+            raise Exception("Empty response from Groq")
+
+        # extract JSON safely
+        match = re.search(r"\{.*\}", response, re.DOTALL)
+        if match:
+            response = match.group(0)
+
+        data = json.loads(response)
+
+        return data
+
     except Exception as e:
-        print("RAW GROQ RESPONSE:")
-        print(response)
-        raise Exception(f"Groq returned invalid JSON: {e}")
+        print("GENERATION ERROR:", str(e))
+        return {
+            "notes": "⚠️ Generation failed (API/Quota/Parsing error)",
+            "flashcards": [],
+            "mcqs": []
+        }
