@@ -265,9 +265,12 @@ streamlit run app.py
 ---
 
 ## ⚠ Known Limitations
-Uses Gemini Free Tier API.
-API requests are subject to daily and rate limits.
-If quota is exceeded, content generation may be temporarily unavailable until the quota resets.
+* This project uses the Google Gemini Free Tier API.
+* Free-tier usage is subject to daily and per-minute quota limits.
+* If the quota is exceeded, note generation, flashcard generation, and quiz generation may temporarily become unavailable until the quota resets.
+* The application includes error handling to notify users when API limits are reached.
+* For production deployment, a paid Gemini API plan or alternative LLM provider is recommended.
+  
 ---
 ## 🔮Future Enhancements
 
