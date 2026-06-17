@@ -295,7 +295,7 @@ if transcript:
 
         st.download_button(
             label="📥 Download Flashcards",
-            data=json.dumps(flashcards, indent=2) 
+            data=json.dumps(flashcards, indent=2),
             file_name="flashcards.txt",
             mime="text/plain"
         )
@@ -304,7 +304,7 @@ if transcript:
 
         st.download_button(
             label="📥 Download MCQs",
-            data=json.dumps(mcqs, indent=2)
+            data=json.dumps(mcqs, indent=2),
             file_name="mcqs.txt",
             mime="text/plain"
         )
