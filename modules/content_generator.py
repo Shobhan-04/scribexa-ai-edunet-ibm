@@ -50,7 +50,10 @@ TEXT:
         response = match.group(0)
 
     try:
-        return json.loads(response)
+        response = ask_groq(prompt)
+        if response.startswith("ERROR"):
+            raise Exception(response)
+            return json.loads(response)
     
     except Exception as e:
         print("RAW GROQ RESPONSE:")
