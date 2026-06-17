@@ -1,4 +1,4 @@
-from modules.gemini_utils import ask_gemini
+from modules.groq_utils import ask_groq
 
 def predict_exam_questions(
     text
@@ -13,4 +13,4 @@ def predict_exam_questions(
     {text}
     """
 
-    return ask_gemini(prompt)
+    return ask_groq(prompt)
