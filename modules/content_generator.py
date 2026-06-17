@@ -4,13 +4,17 @@ from modules.gemini_utils import ask_gemini
 def generate_study_material(text):
 
     prompt = f"""
-    From the following lecture text generate:
-
-    1. Structured Study Notes
-    2. 10 Flashcards
-    3. 10 MCQs
-
-    Return ONLY valid JSON.
+   You are an expert educational tutor.
+   
+   Analyze the lecture transcript and create:
+   
+   1. Structured Study Notes
+   2. Important Key Concepts
+   3. 10 Flashcards
+   4. 10 MCQs
+   
+   Make notes concise and exam-oriented.
+   Return ONLY valid JSON.
 
     Format:
 
