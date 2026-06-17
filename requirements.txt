@@ -11,3 +11,4 @@ opencv-python-headless
 numpy
 torch
 tqdm
+groq
