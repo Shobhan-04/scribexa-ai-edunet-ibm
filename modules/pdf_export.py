@@ -6,15 +6,8 @@ def export_pdf(content, output_file):
 
     pdf.add_page()
 
-    pdf.set_font(
-        "Arial",
-        size=12
-    )
+    pdf.set_font("Arial", size=12)
 
-    pdf.multi_cell(
-        0,
-        10,
-        content
-    )
+    pdf.multi_cell(0, 10, content)
 
     pdf.output(output_file)
