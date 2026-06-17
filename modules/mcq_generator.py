@@ -1,16 +1,20 @@
 from modules.gemini_utils import ask_gemini
 
 def generate_mcqs(text):
-    prompt = f"""
-    Create 5 multiple choice questions from the text.
 
-    Return ONLY JSON:
+    prompt = f"""
+    Generate 10 MCQs from the text.
+
+    Return ONLY valid JSON.
+
+    Format:
+
     [
-      {
-        "question": "...",
-        "options": ["A", "B", "C", "D"],
-        "answer": "A"
-      }
+      {{
+        "question":"Question",
+        "options":["A","B","C","D"],
+        "answer":"Correct Answer"
+      }}
     ]
 
     Text:
