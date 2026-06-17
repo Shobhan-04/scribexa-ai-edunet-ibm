@@ -18,9 +18,7 @@ if not api_key:
 
 genai.configure(api_key=api_key)
 
-model = genai.GenerativeModel(
-    "gemini-1.5-flash"
-)
+model = genai.GenerativeModel("gemini-2.5-flash")
 
 def ask_gemini(prompt):
     try:
@@ -28,4 +26,6 @@ def ask_gemini(prompt):
         return response.text
 
     except Exception as e:
+        print("GEMINI ERROR:")
+        print(str(e))
         return f"ERROR: {str(e)}"
