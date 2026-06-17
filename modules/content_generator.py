@@ -1,5 +1,5 @@
 import json
-from modules.gemini_utils import ask_gemini
+from modules.groq_utils import ask_groq
 
 def generate_study_material(text):
 
@@ -45,10 +45,10 @@ def generate_study_material(text):
     Lecture Text:
     {text}
     """
-    response = ask_gemini(prompt)
+    response = ask_groq(prompt)
     if not response:
-        raise Exception("Gemini returned an empty response.")
-    
+        raise Exception("Groq returned an empty response.")
+
     if response.startswith("ERROR:"):
         raise Exception(response)
 
@@ -64,7 +64,7 @@ def generate_study_material(text):
         return json.loads(response)
 
     except Exception as e:
-        raise Exception(f"""Gemini returned invalid JSON.
+        raise Exception(f"""Groq returned invalid JSON.
         Response received: {response}
         Error: {str(e)}
         """
