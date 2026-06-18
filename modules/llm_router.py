@@ -1,14 +1,12 @@
 from modules.hf_utils import ask_hf
 
 def ask_llm(prompt):
+    response = model.generate_content(prompt)
+
+    print("RAW RESPONSE OBJECT:", response)
 
     try:
-        response = ask_hf(prompt)
-
-        if response and "error" not in response.lower():
-            return response
-
-        raise Exception("Primary model failed")
-
+        return response.text
     except Exception as e:
-        return f"ERROR: {str(e)}"
+        print("LLM ERROR:", e)
+        return None
