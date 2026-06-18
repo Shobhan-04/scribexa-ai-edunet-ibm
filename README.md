@@ -219,6 +219,18 @@ scribexa-ai-edunet-ibm/
 
 ## 📷 Screenshots
 
+## Home Page
+
+![Home Page](assets/home-page.png)
+
+## Upload Interface
+
+![Upload Interface](assets/file_processing.png)
+
+## Output Tab Interface
+
+![Architecture](assets/output.png)
+
 ---
 ## Installation
 
