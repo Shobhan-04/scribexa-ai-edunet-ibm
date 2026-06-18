@@ -5,35 +5,41 @@ def generate_study_material(text):
 
     text = text[:4000]
 
-    prompt = f"""
-    You are a STRICT JSON generator.
+   prompt = f"""
+   You are a JSON generator.
+   
+   VERY IMPORTANT RULES:
+   - Output ONLY valid JSON
+   - No text before JSON
+   - No text after JSON
+   - No markdown
+   - No explanation
+   
+   If you fail, output exactly:
+   {{"error": "invalid"}}
+   
+   FORMAT:
+   {{
+   "notes": "string",
+   "flashcards": [
+   {{"front": "string", "back": "string"}}
+   ],
+   "mcqs": [
+   {{
+   "question": "string",
+   "options": ["A","B","C","D"],
+   "answer": "string"
+   }}
+   ]
+   }}
+   
+   TEXT:
+   {text}
+   """
+   response = ask_hf(prompt)
     
-    RULES:
-    - Return ONLY valid JSON
-    - No explanation
-    - No markdown
-    - No text before or after JSON
-    
-    Output format:
-    {{
-    "notes": "string",
-    "flashcards": [
-    {{"front": "string", "back": "string"}}
-    ],
-    "mcqs": [
-    {{
-    "question": "string",
-    "options": ["A","B","C","D"],
-    "answer": "string"
-    }}
-    ]
-    }}
-    
-    TEXT:
-    {text}
-    """
-
-    response = ask_hf(prompt)
+    if not response or len(response.strip()) < 20:
+        raise Exception("Empty or invalid model response")
     
     try:
         return extract_json(response)
