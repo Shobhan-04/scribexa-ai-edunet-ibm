@@ -33,15 +33,17 @@ def generate_study_material(text):
     {text}
     """
 
-    response = ask_llm(prompt)
-
-    return extract_json(response)
-
-    import re
-    import json
-
-    match = re.search(r"\{.*\}", response, re.DOTALL)
-    if match:
-        response = match.group(0)
-
-    return json.loads(response)
+    response = ask_hf(prompt)
+    
+    try:
+        return extract_json(response)
+    
+    except Exception:
+        fix_prompt = f"""
+        Fix this into VALID JSON ONLY:
+        {response}
+        Return ONLY JSON.
+        """
+        
+        response2 = ask_hf(fix_prompt)
+        return extract_json(response2)
