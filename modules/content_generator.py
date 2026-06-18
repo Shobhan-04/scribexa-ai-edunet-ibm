@@ -1,44 +1,30 @@
+from modules.hf_utils import ask_hf
 import json
-import re
-from modules.groq_utils import ask_groq
 
 def generate_study_material(text):
 
-    text = text[:4000]  # reduce load
+    text = text[:4000]
 
     prompt = f"""
-    Generate study material.
-    Return ONLY valid JSON.
-    
-    {{
-    "notes":"...",
-    "flashcards":[{{"front":"...","back":"..."}}],
-    "mcqs":[{{"question":"...","options":["A","B","C","D"],"answer":"..."}}]
-    }}
-    
-    TEXT: 
-    {text}
-    """
+Generate study material in JSON format:
 
-    try:
-        response = ask_groq(prompt)
+{{
+  "notes":"...",
+  "flashcards":[{{"front":"...","back":"..."}}],
+  "mcqs":[{{"question":"...","options":["A","B","C","D"],"answer":"..."}}]
+}}
 
-        if not response:
-            raise Exception("Empty response from Groq")
+TEXT:
+{text}
+"""
 
-        # extract JSON safely
-        match = re.search(r"\{.*\}", response, re.DOTALL)
-        if match:
-            response = match.group(0)
+    response = ask_hf(prompt)
 
-        data = json.loads(response)
+    import re
+    import json
 
-        return data
+    match = re.search(r"\{.*\}", response, re.DOTALL)
+    if match:
+        response = match.group(0)
 
-    except Exception as e:
-        print("GENERATION ERROR:", str(e))
-        return {
-            "notes": "⚠️ Generation failed (API/Quota/Parsing error)",
-            "flashcards": [],
-            "mcqs": []
-        }
+    return json.loads(response)
