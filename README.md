@@ -232,6 +232,12 @@ scribexa-ai-edunet-ibm/
 ![Architecture](assets/output.png)
 
 ---
+
+## Documentation
+
+- 📊 Project Presentation: [Presentation.pptx](docs/ScribexaAI_Edunet_Foundation.pptx)
+
+---
 ## Installation
 
 ### Clone Repository
