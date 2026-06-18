@@ -162,53 +162,46 @@ if uploaded_file or (option == "YouTube" and youtube_url):
         flashcards = []
         mcqs = []
 
-        try:
-            st.info("⚡ Generating AI study material...")
+        st.info("⚡ Generating AI study material...")
 
-            with st.spinner("🤖 Processing..."):
-                result = generate_study_material(transcript)
-                if not result:
-                    st.warning("⚠️ AI output unavailable. Showing sample demo content.")
-                    notes = """
-                    • Machine Learning is a subset of AI
-                    • It enables systems to learn from data
-                    • Common applications include NLP, CV, and prediction systems
-                    """
-                    
-                    flashcards = [
-                        {"front": "What is AI?", "back": "Artificial Intelligence is simulation of human intelligence"},
-                        {"front": "What is ML?", "back": "Machine Learning is a subset of AI"}
-                    ]
-                    
-                    mcqs = [
-                        {
-                            "question": "What does ML stand for?",
-                            "options": ["Machine Language", "Machine Learning", "Model Learning", "Meta Logic"],
-                            "answer": "Machine Learning"
-                        }
-                    ]
+        with st.spinner("🤖 Processing..."):
+            result = generate_study_material(transcript)
 
-                notes = result.get("notes", "")
-                flashcards = result.get("flashcards", [])
-                mcqs = result.get("mcqs", [])
+        # ---------------- FALLBACK CHECK ----------------
+        if not result or not isinstance(result, dict):
 
-            st.success("✅ Study materials generated successfully!")
+            st.warning("⚠️ AI output unavailable. Showing demo content.")
 
-        except Exception as e:
-            st.error("❌ Failed to generate study materials")
-            st.exception(e)
+            result = {
+                "notes": """
+                • Machine Learning is a subset of AI  
+                • It enables systems to learn from data  
+                • Used in NLP, CV, recommendation systems  
+                """,
 
-    except Exception as e:
-        st.error(f"Processing error: {str(e)}")
-        st.stop()
+                "flashcards": [
+                    {"front": "What is AI?", "back": "Artificial Intelligence is simulation of human intelligence"},
+                    {"front": "What is ML?", "back": "Machine Learning is a subset of AI"}
+                ],
+
+                "mcqs": [
+                    {
+                        "question": "What does ML stand for?",
+                        "options": ["Machine Language", "Machine Learning", "Model Learning", "Meta Logic"],
+                        "answer": "Machine Learning"
+                    }
+                ]
+            }
+
+        # ---------------- ASSIGN VALUES ----------------
+        notes = result.get("notes", "")
+        flashcards = result.get("flashcards", [])
+        mcqs = result.get("mcqs", [])
+
+        st.success("✅ Content ready!")
 
         # ---------------- DATABASE ----------------
-
-        filename = (
-            uploaded_file.name
-            if uploaded_file
-            else youtube_url
-        )
+        filename = uploaded_file.name if uploaded_file else youtube_url
 
         save_lecture(
             filename,
@@ -218,24 +211,13 @@ if uploaded_file or (option == "YouTube" and youtube_url):
             json.dumps(mcqs)
         )
 
-        st.success("✅ Study materials generated successfully!")
-
     except Exception as e:
+        st.error("❌ Error generating content")
+        st.exception(e)
 
-        if "429" in str(e):
-
-            st.warning(
-                """
-                Groq free quota exceeded.
-
-                Please wait a few minutes
-                and try again.
-                """
-            )
-
-        else:
-
-            st.error(str(e))
+else:
+    st.warning("Please upload a file or enter YouTube link.")
+    
 # ---------------------------------------
 # Results Section
 # ---------------------------------------
