@@ -131,7 +131,7 @@ Streamlit Web Application
    └── yt-dlp (YouTube Audio Download)
             │
             ▼
-AI Content Generation Engine
+   AI Content Generation Engine
    (Gemini AI / Hugging Face)
             │
             ▼
