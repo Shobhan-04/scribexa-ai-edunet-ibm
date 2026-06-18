@@ -111,13 +111,9 @@ if uploaded_file or (option == "YouTube" and youtube_url):
         transcript = ""
 
         # ---------------- AUDIO ----------------
-
         if option == "Audio":
 
-            file_path = os.path.join(
-                "uploads",
-                uploaded_file.name
-            )
+            file_path = os.path.join("uploads", uploaded_file.name)
 
             with open(file_path, "wb") as f:
                 f.write(uploaded_file.read())
@@ -126,13 +122,9 @@ if uploaded_file or (option == "YouTube" and youtube_url):
                 transcript = transcribe_audio(file_path)
 
         # ---------------- IMAGE ----------------
-
         elif option == "Image":
 
-            file_path = os.path.join(
-                "uploads",
-                uploaded_file.name
-            )
+            file_path = os.path.join("uploads", uploaded_file.name)
 
             with open(file_path, "wb") as f:
                 f.write(uploaded_file.read())
@@ -141,13 +133,9 @@ if uploaded_file or (option == "YouTube" and youtube_url):
                 transcript = extract_text_from_image(file_path)
 
         # ---------------- PDF ----------------
-
         elif option == "PDF":
 
-            file_path = os.path.join(
-                "uploads",
-                uploaded_file.name
-            )
+            file_path = os.path.join("uploads", uploaded_file.name)
 
             with open(file_path, "wb") as f:
                 f.write(uploaded_file.read())
@@ -156,7 +144,6 @@ if uploaded_file or (option == "YouTube" and youtube_url):
                 transcript = extract_text_from_pdf(file_path)
 
         # ---------------- YOUTUBE ----------------
-
         elif option == "YouTube":
 
             with st.spinner("📥 Downloading lecture..."):
@@ -166,42 +153,38 @@ if uploaded_file or (option == "YouTube" and youtube_url):
                 transcript = transcribe_audio(audio_file)
 
         # ---------------- VALIDATION ----------------
-
-        if not transcript.strip():
-
-            st.error(
-                "No text extracted."
-            )
-
+        if not transcript or not transcript.strip():
+            st.error("No text extracted.")
             st.stop()
 
-      # ---------------- GENERATE CONTENT ----------------
-result = None
-notes = ""
-flashcards = []
-mcqs = []
+        # ---------------- GENERATE CONTENT ----------------
+        result = None
+        notes = ""
+        flashcards = []
+        mcqs = []
 
-try:
-    st.info("⚡ Generating AI study material...")
+        try:
+            st.info("⚡ Generating AI study material...")
 
-    with st.spinner("🤖 Processing..."):
+            with st.spinner("🤖 Processing..."):
+                result = generate_study_material(transcript)
 
-        result = generate_study_material(transcript)
+                if not result:
+                    raise Exception("Empty response from AI")
 
-        if not result:
-            raise Exception("Empty response from AI")
+                notes = result.get("notes", "")
+                flashcards = result.get("flashcards", [])
+                mcqs = result.get("mcqs", [])
 
-        notes = result.get("notes", "")
-        flashcards = result.get("flashcards", [])
-        mcqs = result.get("mcqs", [])
+            st.success("✅ Study materials generated successfully!")
 
-        st.success("✅ Study materials generated successfully!")
+        except Exception as e:
+            st.error("❌ Failed to generate study materials")
+            st.exception(e)
 
-except Exception as e:
-
-    st.error("❌ Failed to generate study materials")
-
-    st.exception(e)
+    except Exception as e:
+        st.error(f"Processing error: {str(e)}")
+        st.stop()
 
         # ---------------- DATABASE ----------------
 
