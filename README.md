@@ -68,6 +68,17 @@ Landing Page :
 
 ---
 
+## ✅ Working Features
+
+- Home page UI
+- File upload system (PDF / Audio / Image / YouTube)
+- Sidebar input selection
+- Loading animations and processing states
+- Tab-based interface (Transcript / Notes / Flashcards / MCQs)
+- Modular AI pipeline architecture
+- 
+---
+
 ## 🛠 Tech Stack
 
 ### Frontend
