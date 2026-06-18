@@ -76,7 +76,7 @@ Landing Page :
 - Loading animations and processing states
 - Tab-based interface (Transcript / Notes / Flashcards / MCQs)
 - Modular AI pipeline architecture
-- 
+  
 ---
 
 ## 🛠 Tech Stack
