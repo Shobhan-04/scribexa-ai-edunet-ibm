@@ -1,4 +1,4 @@
-from modules.groq_utils import ask_groq
+from modules.hf_utils import ask_hf
 
 def generate_revision_notes(
     text
@@ -19,4 +19,4 @@ def generate_revision_notes(
     {text}
     """
 
-    return ask_groq(prompt)
+    return ask_hf(prompt)
