@@ -1,4 +1,4 @@
-from modules.groq_utils import ask_groq
+from modules.hf_utils import ask_hf
 
 def generate_mcqs(text):
 
@@ -21,4 +21,4 @@ def generate_mcqs(text):
     {text}
     """
 
-    return ask_groq(prompt)
+    return ask_hf(prompt)
