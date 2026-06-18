@@ -45,7 +45,7 @@ option = st.sidebar.selectbox(
         "Audio",
         "Image",
         "PDF",
-        # "YouTube"
+        "YouTube"
     ]
 )
 
@@ -168,8 +168,25 @@ if uploaded_file or (option == "YouTube" and youtube_url):
             with st.spinner("🤖 Processing..."):
                 result = generate_study_material(transcript)
                 if not result:
-                    st.error("AI failed to generate structured output. Try shorter input.")
-                    st.stop()
+                    st.warning("⚠️ AI output unavailable. Showing sample demo content.")
+                    notes = """
+                    • Machine Learning is a subset of AI
+                    • It enables systems to learn from data
+                    • Common applications include NLP, CV, and prediction systems
+                    """
+                    
+                    flashcards = [
+                        {"front": "What is AI?", "back": "Artificial Intelligence is simulation of human intelligence"},
+                        {"front": "What is ML?", "back": "Machine Learning is a subset of AI"}
+                    ]
+                    
+                    mcqs = [
+                        {
+                            "question": "What does ML stand for?",
+                            "options": ["Machine Language", "Machine Learning", "Model Learning", "Meta Logic"],
+                            "answer": "Machine Learning"
+                        }
+                    ]
 
                 notes = result.get("notes", "")
                 flashcards = result.get("flashcards", [])
