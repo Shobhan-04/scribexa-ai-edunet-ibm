@@ -71,7 +71,10 @@ if option == "YouTube":
                 transcript = transcribe_audio(audio_file)
 
             st.write("Transcript Length:", len(transcript))
-            result = generate_study_material(transcript) or {}
+            if st.session_state.result is None:
+                with st.spinner("Generating study material..."):
+                    st.session_state.result = generate_study_material(transcript)
+            result = st.session_state.result            
             
             notes = result.get("notes", "")
             flashcards = result.get("flashcards", [])
