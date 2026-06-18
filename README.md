@@ -6,7 +6,9 @@
 
 AI-Powered Lecture-to-Notes Generator using Speech Recognition, OCR, NLP, and Generative AI. Upload lectures, PDFs, or handwritten notes and instantly generate AI-powered notes, flashcards, quizzes, and revision materials.
 
-## Overview
+## 📌 Project Overview
+
+The system demonstrates a complete AI-powered pipeline architecture. Due to API quota limitations of external LLM services (Gemini/Hugging Face), the content generation module could not be consistently executed during deployment. However, the UI, workflow design, and processing pipeline are fully implemented and functional.
 
 Scribexa AI helps students convert lecture recordings, handwritten notes, and PDFs into structured study materials.
 
