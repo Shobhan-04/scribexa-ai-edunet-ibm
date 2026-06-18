@@ -175,22 +175,31 @@ if uploaded_file or (option == "YouTube" and youtube_url):
 
             st.stop()
 
-       # ---------------- GENERATE CONTENT ----------------
-        try:
-            st.info("⚡ Generating AI study material (this may take 10–20 seconds)")
-            
-            with st.spinner("🤖 Processing with AI..."):
-                if "result" not in st.session_state:
-                    st.session_state.result = generate_study_material(transcript)
-                
-                result = st.session_state.result
-            
-            notes = result["notes"]
-            flashcards = result["flashcards"]
-            mcqs = result["mcqs"]
+      # ---------------- GENERATE CONTENT ----------------
+result = None
+
+try:
+    st.info("⚡ Generating AI study material...")
+    
+    with st.spinner("🤖 Processing..."):
+        result = generate_study_material(transcript)
         
-        except Exception as e:
-            st.error("Something went wrong. Please try again or upload smaller file.")
+        if not result:
+            raise Exception("Empty result from AI")
+
+        notes = result.get("notes", "")
+        flashcards = result.get("flashcards", [])
+        mcqs = result.get("mcqs", [])
+
+        st.success("✅ Study materials generated successfully!")
+
+except Exception as e:
+    st.error("❌ Failed to generate study materials")
+    st.exception(e)
+
+    notes = ""
+    flashcards = []
+    mcqs = []
 
         # ---------------- DATABASE ----------------
 
