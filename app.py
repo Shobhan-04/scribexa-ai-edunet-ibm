@@ -168,9 +168,9 @@ if uploaded_file or (option == "YouTube" and youtube_url):
 
             with st.spinner("🤖 Processing..."):
                 result = generate_study_material(transcript)
-
                 if not result:
-                    raise Exception("Empty response from AI")
+                    st.error("AI failed to generate structured output. Try shorter input.")
+                    st.stop()
 
                 notes = result.get("notes", "")
                 flashcards = result.get("flashcards", [])
