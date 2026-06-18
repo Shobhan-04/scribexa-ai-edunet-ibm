@@ -1,5 +1,5 @@
 import streamlit as st
-from modules.groq_utils import ask_groq
+from modules.hf_utils import ask_hf
 
 def ask_notes_question(notes, question):
 
@@ -13,7 +13,7 @@ def ask_notes_question(notes, question):
     {question}
     """
 
-    return ask_groq(prompt)
+    return ask_hf(prompt)
 
 
 def chatbot_ui(notes):
