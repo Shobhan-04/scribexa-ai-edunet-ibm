@@ -177,15 +177,19 @@ if uploaded_file or (option == "YouTube" and youtube_url):
 
       # ---------------- GENERATE CONTENT ----------------
 result = None
+notes = ""
+flashcards = []
+mcqs = []
 
 try:
     st.info("⚡ Generating AI study material...")
-    
+
     with st.spinner("🤖 Processing..."):
+
         result = generate_study_material(transcript)
-        
+
         if not result:
-            raise Exception("Empty result from AI")
+            raise Exception("Empty response from AI")
 
         notes = result.get("notes", "")
         flashcards = result.get("flashcards", [])
@@ -194,12 +198,10 @@ try:
         st.success("✅ Study materials generated successfully!")
 
 except Exception as e:
-    st.error("❌ Failed to generate study materials")
-    st.exception(e)
 
-    notes = ""
-    flashcards = []
-    mcqs = []
+    st.error("❌ Failed to generate study materials")
+
+    st.exception(e)
 
         # ---------------- DATABASE ----------------
 
