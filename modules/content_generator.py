@@ -6,32 +6,32 @@ def generate_study_material(text):
     text = text[:4000]
 
     prompt = f"""
-You are an AI that returns ONLY valid JSON.
-
-Generate:
-- notes
-- 10 flashcards
-- 10 MCQs
-
-Return format:
-
-{{
-  "notes": "...",
-  "flashcards": [
-    {{"front":"...","back":"..."}}
-  ],
-  "mcqs": [
+    You are a STRICT JSON generator.
+    
+    RULES:
+    - Return ONLY valid JSON
+    - No explanation
+    - No markdown
+    - No text before or after JSON
+    
+    Output format:
     {{
-      "question":"...",
-      "options":["A","B","C","D"],
-      "answer":"..."
+    "notes": "string",
+    "flashcards": [
+    {{"front": "string", "back": "string"}}
+    ],
+    "mcqs": [
+    {{
+    "question": "string",
+    "options": ["A","B","C","D"],
+    "answer": "string"
     }}
-  ]
-}}
-
-TEXT:
-{text}
-"""
+    ]
+    }}
+    
+    TEXT:
+    {text}
+    """
 
     response = ask_llm(prompt)
 
