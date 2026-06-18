@@ -131,7 +131,8 @@ Streamlit Web Application
    └── yt-dlp (YouTube Audio Download)
             │
             ▼
-      Gemini AI Engine
+AI Content Generation Engine
+   (Gemini AI / Hugging Face)
             │
             ▼
    ├── Study Notes
@@ -296,7 +297,7 @@ streamlit run app.py
 ---
 
 ## ⚠ Known Limitations
-* This project uses the Google Gemini Free Tier API.
+* This project uses the Google Gemini Free Tier API / Hugging Face Free Tier Token.
 * Free-tier usage is subject to daily and per-minute quota limits.
 * If the quota is exceeded, note generation, flashcard generation, and quiz generation may temporarily become unavailable until the quota resets.
 * The application includes error handling to notify users when API limits are reached.
