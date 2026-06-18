@@ -37,9 +37,9 @@ def generate_study_material(text):
     """
     
    response = ask_hf(prompt)
-    
-    if not response or len(response.strip()) < 20:
-        raise Exception("Empty or invalid model response")
+
+if not response or len(response.strip()) < 20:
+    raise Exception("Empty or invalid model response")
     
     try:
         return extract_json(response)
