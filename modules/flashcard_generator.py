@@ -1,4 +1,4 @@
-from modules.groq_utils import ask_groq
+from modules.hf_utils import ask_hf
 
 def generate_flashcards(text):
     prompt = f"""Convert the following text into flashcards.
@@ -15,5 +15,5 @@ def generate_flashcards(text):
     {text}
     """
 
-    response = ask_groq(prompt)
+    response = ask_hf(prompt)
     return response
