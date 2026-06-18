@@ -310,6 +310,7 @@ streamlit run app.py
 * Revision Notes Generator
 * Exam Question Predictor
 * Multi-Language Support
+* YouTube Lecture Support
 * Mind Map Generation
 * Cloud Deployment
 * RAG-based Study Assistant
