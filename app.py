@@ -8,7 +8,6 @@ from modules.pdf_processor import extract_text_from_pdf
 # from modules.chatbot import chatbot_ui 
 
 from modules.content_generator import generate_study_material
-
 from database.database import save_lecture
 import json
 
